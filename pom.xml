@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>ProjectPayconiq</groupId>
+    <artifactId>ProjectPayconiq</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <dependencies>
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <version>1.2.5</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/io.rest-assured/rest-assured -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>3.1.1</version>
+        </dependency>
+
+        <!-- These are the cucumber-junit dependencies -->
+        <dependency>
+            <groupId>info.cukes</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>1.2.5</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.testng/testng -->
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>6.8</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.vimalselvam</groupId>
+            <artifactId>cucumber-extentsreport</artifactId>
+            <version>3.0.2</version>
+        </dependency>
+        <dependency>
+            <groupId>com.aventstack</groupId>
+            <artifactId>extentreports</artifactId>
+            <version>3.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>6.8</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.20.1</version>
+            </plugin>
+            <plugin>
+                <groupId>net.masterthought</groupId>
+                <artifactId>maven-cucumber-reporting</artifactId>
+                <version>2.0.0</version>
+                <executions>
+                    <execution>
+                        <id>execution</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <projectName>cucumber-jvm-example</projectName>
+                            <outputDirectory>${project.build.directory}/site/cucumber-reports</outputDirectory>
+                            <cucumberOutput>${project.build.directory}/cucumber.json</cucumberOutput>
+                            <buildNumber>32</buildNumber>
+                            <skippedFails>true</skippedFails>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.trivago.rta</groupId>
+                <artifactId>cluecumber-report-plugin</artifactId>
+                <version>2.3.0</version>
+                <executions>
+                    <execution>
+                        <id>report</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>reporting</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!-- The only two mandatory properties -->
+                    <sourceJsonReportDirectory>target/cucumber.json</sourceJsonReportDirectory>
+                    <generatedHtmlReportDirectory>target/cucumber-reports</generatedHtmlReportDirectory>
+
+                    <!-- Optional custom parameters that are shown on the start page (if they have a value) -->
+                    <!-- If a key starts with an underscore ("_"), only the value is displayed. -->
+                    <customParameters>
+                        <Custom_Parameter>Test Report</Custom_Parameter>
+                        <Custom_URL>https://api.github.com/gists</Custom_URL>
+                        <_KeysStartingWithAnUnderscoreAreHidden>This is a long text that is displayed without the key. This can be used to display longer texts in the report!</_KeysStartingWithAnUnderscoreAreHidden>
+                    </customParameters>
+
+                    <!-- Optional custom colors for passed, failed and skipped -->
+                    <!-- <customStatusColorPassed>#017FAF</customStatusColorPassed> -->
+                    <!-- <customStatusColorFailed>#C94A38</customStatusColorFailed> -->
+                    <!-- <customStatusColorSkipped>#F48F00</customStatusColorSkipped> -->
+
+                    <!-- Optional report page title -->
+                    <customPageTitle>My Report</customPageTitle>
+
+                    <!-- Optional custom parameters file -->
+                    <!--<customParametersFile>custom/custom.properties</customParametersFile>-->
+
+                    <!-- Optional: mark scenarios as failed that contain pending or undefined steps (default: false) -->
+                    <!--<failScenariosOnPendingOrUndefinedSteps>true</failScenariosOnPendingOrUndefinedSteps>-->
+
+                    <!-- Optional custom CSS for custom styling -->
+                    <!--<customCss>custom/custom.css</customCss>-->
+
+                    <!-- Optional properties to expand scenario hooks, step hooks and doc strings when scenario details are shown (default: false) -->
+                    <!--<expandBeforeAfterHooks>true</expandBeforeAfterHooks>-->
+                    <expandStepHooks>true</expandStepHooks>
+                    <!--<expandDocStrings>true</expandDocStrings>-->
+
+                    <!-- optional: Cluecumber log level -->
+                    <logLevel>default</logLevel>
+                    <!--<logLevel>compact</logLevel>-->
+                    <!--<logLevel>minimal</logLevel>-->
+                    <!--<logLevel>off</logLevel>-->
+
+                    <!-- Optionally skip the whole report generation -->
+                    <!--<skip>true</skip>-->
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
